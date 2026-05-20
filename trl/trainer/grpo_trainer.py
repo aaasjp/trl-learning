@@ -17,6 +17,7 @@ import atexit
 import copy
 import importlib.resources as pkg_resources
 import inspect
+import logging
 import math
 import os
 import sys
@@ -1135,6 +1136,59 @@ class GRPOTrainer(_BaseTrainer):
             self._current_train_step_time = 0.0
         return output
 
+    def _debug_log_prepare_inputs_decoded_text(self, inputs: dict[str, Any]) -> None:
+        """
+        When verbose logging is on (`logging.DEBUG` for this logger), prints mask-trimmed decoded prompt, completion,
+        weighted reward sum, per-reward-function values, advantage, and prompt+completion text for a few sequences in
+        the current micro-batch (main process only).
+        """
+        if not self.accelerator.is_main_process or not logger.isEnabledFor(logging.DEBUG):
+            return
+        needed = ("prompt_ids", "prompt_mask", "completion_ids", "completion_mask")
+        if any(k not in inputs for k in needed):
+            logger.debug("_debug_log_prepare_inputs_decoded_text: missing token fields, skip.")
+            return
+        tok = self._tokenizer
+        prompt_ids = inputs["prompt_ids"]
+        completion_ids = inputs["completion_ids"]
+        prompt_mask = inputs["prompt_mask"].bool()
+        completion_mask = inputs["completion_mask"].bool()
+        rewards_vec = inputs.get("rewards")
+        rewards_pf = inputs.get("rewards_per_func")
+        advantages_vec = inputs.get("advantages")
+        n = min(prompt_ids.shape[0], 4)
+        for i in range(n):
+            p_ids = prompt_ids[i][prompt_mask[i]].detach().cpu().tolist()
+            c_ids = completion_ids[i][completion_mask[i]].detach().cpu().tolist()
+            prompt_text = tok.decode(p_ids, skip_special_tokens=False)
+            completion_text = tok.decode(c_ids, skip_special_tokens=False)
+            full_text = tok.decode(p_ids + c_ids, skip_special_tokens=False)
+            reward_line = ""
+            if rewards_vec is not None and rewards_vec.shape[0] > i:
+                rv = rewards_vec[i].float().item()
+                reward_line += f"reward_weighted_sum={'nan' if math.isnan(rv) else f'{rv:.6g}'}"
+            if rewards_pf is not None and rewards_pf.shape[0] > i:
+                row = rewards_pf[i].detach().cpu().tolist()
+                parts = []
+                for name, val in zip(self.reward_func_names, row, strict=True):
+                    fv = float(val)
+                    parts.append(f"{name}={'nan' if math.isnan(fv) else f'{fv:.6g}'}")
+                pf_str = "per_func={" + ", ".join(parts) + "}"
+                reward_line = pf_str if reward_line == "" else f"{reward_line}; {pf_str}"
+            if advantages_vec is not None and advantages_vec.shape[0] > i:
+                av = advantages_vec[i].float().item()
+                adv_str = f"advantage={'nan' if math.isnan(av) else f'{av:.6g}'}"
+                reward_line = adv_str if reward_line == "" else f"{reward_line}; {adv_str}"
+            logger.debug(
+                "GRPO micro-batch decoded sample[%s/%s]%s\n--- prompt ---\n%s\n--- completion ---\n%s\n--- prompt+completion ---\n%s",
+                i + 1,
+                prompt_ids.shape[0],
+                f"\n--- rewards ---\n{reward_line}" if reward_line else "",
+                prompt_text,
+                completion_text,
+                full_text,
+            )
+
     @profiling_decorator
     def _prepare_inputs(self, generation_batch: dict[str, torch.Tensor | Any]) -> dict[str, torch.Tensor | Any]:
         # Prepares inputs for model training/evaluation by managing completion generation and batch handling.
@@ -1161,10 +1215,12 @@ class GRPOTrainer(_BaseTrainer):
                 generation_batches = split_tensor_dict(generation_batch, self.args.steps_per_generation)
                 self._buffered_inputs = [unsplit_pixel_values_by_grid(batch) for batch in generation_batches]
             inputs = self._buffered_inputs[self._step % self.args.steps_per_generation]
+            self._debug_log_prepare_inputs_decoded_text(inputs)
         else:
             # In evaluation, there is neither batch grouping for generation, nor multiple iterations, hence
             # local generation batch == local eval batch
             inputs = self._generate_and_score_completions(generation_batch)
+            self._debug_log_prepare_inputs_decoded_text(inputs)
         return inputs
 
     def _log_completion_extra(self, column: str, values: list):
@@ -2200,6 +2256,8 @@ class GRPOTrainer(_BaseTrainer):
             std_func_rewards = nanstd(rewards_per_func[:, i]).item()
             self._metrics[mode][f"rewards/{reward_func_name}/std"].append(std_func_rewards)
         rewards = (rewards_per_func * self.reward_weights.to(rewards_per_func.device).unsqueeze(0)).nansum(dim=1)
+        rewards_local = rewards[process_slice].detach()
+        rewards_per_func_local = rewards_per_func[process_slice].detach()
         self._metrics[mode]["reward"].append(rewards.mean().item())
         self._metrics[mode]["reward_std"].append(rewards.std().item())
         self._metrics[mode]["frac_reward_zero_std"].append(is_std_zero.float().mean().item())
@@ -2273,6 +2331,8 @@ class GRPOTrainer(_BaseTrainer):
             "completion_ids": completion_ids,
             "completion_mask": completion_mask,
             "advantages": advantages,
+            "rewards": rewards_local,
+            "rewards_per_func": rewards_per_func_local,
             "num_items_in_batch": num_items_in_batch,
         }
         if old_per_token_logps is not None:
