@@ -1,0 +1,566 @@
+{
+    "prompt": [
+        {
+            "role": "user",
+            "content": "What is the weather forecast for the company retreat in Bali?"
+        }
+    ],
+    "completion": [
+        {
+            "role": "assistant",
+            "tool_calls": [
+                {
+                    "type": "function",
+                    "function": {
+                        "name": "search_google",
+                        "arguments": {
+                            "query": "weather forecast Bali"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "tools": [
+        {
+            "type": "function",
+            "function": {
+                "name": "search_knowledge_base",
+                "description": "Search internal company documents, policies and project data.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "query": {
+                            "type": "string",
+                            "description": "query string"
+                        }
+                    },
+                    "required": [
+                        "query"
+                    ]
+                },
+                "return": {
+                    "type": "string"
+                }
+            }
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "search_google",
+                "description": "Search public information.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "query": {
+                            "type": "string",
+                            "description": "query string"
+                        }
+                    },
+                    "required": [
+                        "query"
+                    ]
+                },
+                "return": {
+                    "type": "string"
+                }
+            }
+        }
+    ]
+}
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.68s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.06s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.15s/it]
+Tokenizing train dataset:   0%|          | 0/20 [00:00<?, ? examples/s]Tokenizing train dataset: 100%|██████████| 20/20 [00:00<00:00, 353.41 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 6}.
+* Trackio project initialized: huggingface
+* Trackio metrics will be synced to Hugging Face Dataset: aaasjp/tiny-aya-global-SFT-dataset
+* Found existing space: https://huggingface.co/spaces/aaasjp/tiny-aya-global-SFT
+* View dashboard by going to: https://aaasjp-tiny-aya-global-SFT.hf.space/
+* Apple Silicon detected, enabling automatic system metrics logging
+* Created new run: aaasjp-1779361522
+  0%|          | 0/15 [00:00<?, ?it/s]/Users/ailabuser7-1/miniconda3/envs/trl/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+  7%|▋         | 1/15 [00:05<01:11,  5.11s/it]                                                7%|▋         | 1/15 [00:05<01:11,  5.11s/it] 13%|█▎        | 2/15 [00:09<01:03,  4.90s/it]                                               13%|█▎        | 2/15 [00:10<01:03,  4.90s/it] 20%|██        | 3/15 [00:15<01:00,  5.08s/it]                                               20%|██        | 3/15 [00:16<01:00,  5.08s/it] 27%|██▋       | 4/15 [00:21<01:01,  5.60s/it]                                               27%|██▋       | 4/15 [00:21<01:01,  5.60s/it] 33%|███▎      | 5/15 [00:26<00:52,  5.25s/it]                                               33%|███▎      | 5/15 [00:27<00:52,  5.25s/it]/Users/ailabuser7-1/miniconda3/envs/trl/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+ 40%|████      | 6/15 [00:32<00:50,  5.59s/it]                                               40%|████      | 6/15 [00:32<00:50,  5.59s/it] 47%|████▋     | 7/15 [00:37<00:42,  5.31s/it]                                               47%|████▋     | 7/15 [00:38<00:42,  5.31s/it] 53%|█████▎    | 8/15 [00:43<00:39,  5.69s/it]                                               53%|█████▎    | 8/15 [00:43<00:39,  5.69s/it] 60%|██████    | 9/15 [00:48<00:32,  5.34s/it]                                               60%|██████    | 9/15 [00:49<00:32,  5.34s/it] 67%|██████▋   | 10/15 [00:54<00:28,  5.64s/it]                                                67%|██████▋   | 10/15 [00:54<00:28,  5.64s/it]/Users/ailabuser7-1/miniconda3/envs/trl/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+ 73%|███████▎  | 11/15 [00:59<00:21,  5.37s/it]                                                73%|███████▎  | 11/15 [01:00<00:21,  5.37s/it] 80%|████████  | 12/15 [01:05<00:16,  5.64s/it]                                                80%|████████  | 12/15 [01:05<00:16,  5.64s/it] 87%|████████▋ | 13/15 [01:10<00:10,  5.31s/it]                                                87%|████████▋ | 13/15 [01:11<00:10,  5.31s/it] 93%|█████████▎| 14/15 [01:16<00:05,  5.59s/it]                                                93%|█████████▎| 14/15 [01:16<00:05,  5.59s/it]100%|██████████| 15/15 [01:20<00:00,  5.29s/it]                                               100%|██████████| 15/15 [01:23<00:00,  5.29s/it]                                               100%|██████████| 15/15 [01:26<00:00,  5.29s/it]100%|██████████| 15/15 [01:28<00:00,  5.93s/it]
+{'loss': 2.054, 'grad_norm': 2.9143736362457275, 'learning_rate': 0.0, 'entropy': 1.731354683637619, 'num_tokens': 2924.0, 'mean_token_accuracy': 0.624693363904953, 'epoch': 0.2}
+{'loss': 1.8302, 'grad_norm': 2.8300061225891113, 'learning_rate': 4e-05, 'entropy': 1.6153881251811981, 'num_tokens': 5877.0, 'mean_token_accuracy': 0.6548077464103699, 'epoch': 0.4}
+{'loss': 1.5606, 'grad_norm': 2.4573311805725098, 'learning_rate': 8e-05, 'entropy': 1.3183654248714447, 'num_tokens': 8806.0, 'mean_token_accuracy': 0.7553571462631226, 'epoch': 0.6}
+{'loss': 1.7278, 'grad_norm': 2.6290340423583984, 'learning_rate': 0.00012, 'entropy': 1.5651149451732635, 'num_tokens': 11741.0, 'mean_token_accuracy': 0.768937274813652, 'epoch': 0.8}
+{'loss': 1.3655, 'grad_norm': 2.518270492553711, 'learning_rate': 0.00016, 'entropy': 1.2573767006397247, 'num_tokens': 14669.0, 'mean_token_accuracy': 0.7488487809896469, 'epoch': 1.0}
+{'loss': 0.6356, 'grad_norm': 1.2508544921875, 'learning_rate': 0.0002, 'entropy': 0.8952405601739883, 'num_tokens': 17600.0, 'mean_token_accuracy': 0.8440656661987305, 'epoch': 1.2}
+{'loss': 0.4632, 'grad_norm': 0.9850581288337708, 'learning_rate': 0.00018, 'entropy': 0.7049342691898346, 'num_tokens': 20545.0, 'mean_token_accuracy': 0.9137370586395264, 'epoch': 1.4}
+{'loss': 0.7788, 'grad_norm': 1.5526293516159058, 'learning_rate': 0.00016, 'entropy': 0.5847184881567955, 'num_tokens': 23480.0, 'mean_token_accuracy': 0.866951510310173, 'epoch': 1.6}
+{'loss': 0.2248, 'grad_norm': 0.8860427737236023, 'learning_rate': 0.00014, 'entropy': 0.3328638784587383, 'num_tokens': 26405.0, 'mean_token_accuracy': 0.9571067839860916, 'epoch': 1.8}
+{'loss': 0.2019, 'grad_norm': 1.332774043083191, 'learning_rate': 0.00012, 'entropy': 0.30261581018567085, 'num_tokens': 29338.0, 'mean_token_accuracy': 0.9384346008300781, 'epoch': 2.0}
+{'loss': 0.34, 'grad_norm': 0.6538499593734741, 'learning_rate': 0.0001, 'entropy': 0.39527294412255287, 'num_tokens': 32282.0, 'mean_token_accuracy': 0.9571078419685364, 'epoch': 2.2}
+{'loss': 0.2831, 'grad_norm': 0.6475427150726318, 'learning_rate': 8e-05, 'entropy': 0.32225996628403664, 'num_tokens': 35216.0, 'mean_token_accuracy': 0.923766627907753, 'epoch': 2.4}
+{'loss': 0.0997, 'grad_norm': 0.4221797585487366, 'learning_rate': 6e-05, 'entropy': 0.19604406133294106, 'num_tokens': 38147.0, 'mean_token_accuracy': 0.9640395492315292, 'epoch': 2.6}
+{'loss': 0.202, 'grad_norm': 0.5909507274627686, 'learning_rate': 4e-05, 'entropy': 0.28503476455807686, 'num_tokens': 41082.0, 'mean_token_accuracy': 0.9379370659589767, 'epoch': 2.8}
+{'loss': 0.0995, 'grad_norm': 0.5671745538711548, 'learning_rate': 2e-05, 'entropy': 0.19052120298147202, 'num_tokens': 44007.0, 'mean_token_accuracy': 0.9711940884590149, 'epoch': 3.0}
+{'train_runtime': 86.0262, 'train_samples_per_second': 0.697, 'train_steps_per_second': 0.174, 'train_loss': 0.7911311725775401, 'epoch': 3.0}
+* Run finished. Uploading logs to Trackio Space (please wait...)
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.30s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.30it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.18it/s]
+User Query: [{'role': 'user', 'content': 'Comparison of AWS vs GCP pricing.'}]
+
+Text: <BOS_TOKEN><|START_OF_TURN_TOKEN|><|SYSTEM_TOKEN|># System Preamble
+You are in contextual safety mode. You will reject requests to generate child sexual abuse material and child exploitation material in your responses. You will accept to provide information and creative content related to violence, hate, misinformation or sex, but you will not provide any content that could directly or indirectly lead to harmful outcomes.
+
+Your information cutoff date is June 2024.
+
+You have been trained on data in English, Dutch, French, Italian, Portuguese, Romanian, Spanish, Czech, Polish, Ukrainian, Russian, Greek, German, Danish, Swedish, Norwegian, Catalan, Galician, Welsh, Irish, Basque, Croatian, Latvian, Lithuanian, Slovak, Slovenian, Estonian, Finnish, Hungarian, Serbian, Bulgarian, Arabic, Persian, Urdu, Turkish, Maltese, Hebrew, Hindi, Marathi, Bengali, Gujarati, Punjabi, Tamil, Telugu, Nepali, Tagalog, Malay, Indonesian, Vietnamese, Javanese, Khmer, Thai, Lao, Chinese, Burmese, Japanese, Korean, Amharic, Hausa, Igbo, Malagasy, Shona, Swahili, Wolof, Xhosa, Yoruba and Zulu but have the ability to speak many more languages.
+
+# Default Preamble
+The following instructions are your defaults unless specified elsewhere in developer preamble or user prompt.
+- Your name is Aya.
+- You are a large language model built by Cohere.
+- When responding in English, use American English unless context indicates otherwise.
+- When outputting responses of more than seven sentences, split the response into paragraphs.
+- Prefer the active voice.
+- Use gender-neutral pronouns for unspecified persons.
+- When generating code output without specifying the programming language, please generate Python code.
+# Tools
+You have access to the following functions:
+
+<tools><function>
+<name>search_knowledge_base</name><description>Search internal company documents, policies and project data.</description><parameters>{"type": "object", "properties": {"query": {"type": "string", "description": "query string"}}, "required": ["query"]}</parameters></function><function>
+<name>search_google</name><description>Search public information.</description><parameters>{"type": "object", "properties": {"query": {"type": "string", "description": "query string"}}, "required": ["query"]}</parameters></function></tools>
+
+If you choose to call a function ONLY reply in the following format with NO suffix:
+
+<tool_call>
+<function=example_function_name>
+<parameter=example_parameter_1>
+value_1
+</parameter>
+<parameter=example_parameter_2>
+This is the value for the second parameter
+that can span
+multiple lines
+</parameter>
+</function>
+</tool_call>
+
+<IMPORTANT>
+Reminder:
+- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags
+- Required parameters MUST be specified
+- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after
+- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls
+</IMPORTANT><|END_OF_TURN_TOKEN|><|START_OF_TURN_TOKEN|><|USER_TOKEN|>Comparison of AWS vs GCP pricing.<|END_OF_TURN_TOKEN|><|START_OF_TURN_TOKEN|><|CHATBOT_TOKEN|><|START_RESPONSE|>
+
+Model Inputs: {'input_ids': tensor([[     2,      2,      5,      9,     17,   5669,   6604,  61477,    213,
+           4981,    569,    319,  94655,  14502,  10077,     28,   2914,   1009,
+          27983,  23006,    337,  13718,   3387,  16746,  26799,   3846,    344,
+           3387,  95671,   3846,    319,    954,  30187,     28,   2914,   1009,
+           7597,    337,   4899,   2743,    344,  21097,   4877,   7182,    337,
+          27665,     26,  27748,     26, 177524,    541,   1542,     26,   1080,
+            656,   1009,    682,   4899,   1410,   4877,    503,   2508,   9025,
+            541,  86273,   6219,    337,  35339,  19769,    458,  21256,   2743,
+         229632,   4802,    386,   9062,    235,     32,  10499,    458,   4981,
+            825,   1712,  31992,    447,   1600,    319,   6528,     26,  22777,
+             26,  19763,     26,  31746,     26, 102149,     26, 117161,     26,
+          36011,     26,  46988,     26,  74132,     26, 130868,     26,  24122,
+             26,  29273,     26,  16122,     26,  38534,     26,  40975,     26,
+          80862,     26, 138045,     26,  19210,  27134,     26, 146448,     26,
+          83382,     26, 197135,     26,    395,  25294,    985,     26, 183432,
+             26, 119571,   5406,    985,     26, 199416,     26, 220721,     26,
+         193395,     26, 123995,     26, 221636,     26, 237582,     26,  21958,
+             26,  47684,     26,  44896,     26, 179482,     26,  78926,     26,
+         160260,   1134,     26,  81319,     26,  43318,     26,  65843,     26,
+         157056,     26, 150010, 113602,     26, 104407,  12576,     26, 113817,
+             26,  18077,  16877,     26,  42799,   1820,     26,  23617,  62469,
+             26, 153505,     26, 138956,     26,  89221,     26,    638, 247255,
+             26,  14739,   1230,     26,  17930,     26, 192421,     26,  17172,
+             26,  20043,     91,   1134,     26,  26360,     26,  72914,     26,
+           4134, 242555,     26, 173445,     26,  24166,   1812,     26,   6793,
+            382,  11193,     26,   2898,   3151,     26,  10752, 207992,     26,
+          19468,   2022,     26,   2243,     86,   6725,     26, 150823,    344,
+           1455,   5976,   1080,    825,    301,  10776,    337,  15076,   2586,
+           1187,  23683,    458,     17,  31560,   6604,  61477,    213,    948,
+           3727,  18834,    569,    954,  57132,  17921,  10424,  39856,    319,
+          42404,    839,  61477,    541,   4344,  22197,    323,     27,   8979,
+           2250,    386,    375,    915,    323,     27,   2914,    569,    276,
+           5135,   7572,   3013,  11100,    592, 188212,    493,    323,     27,
+           4255,  78593,    319,   6528,     26,   1418,   7107,   6528,  17921,
+           6989,  19504,  14705,    323,     27,   4255, 239272,  30187,    332,
+           1187,   1580,  23209,  31523,     26,  15989,    301,   6135,   1656,
+          58491,    323,     27, 153446,    301,  10208,  17040,    323,     27,
+          10559,  26599,  83379,  16799, 149241,    420,    487, 154469,  28696,
+            323,     27,   4255,  30420,   5185,   4835,   3837,  64221,    301,
+          17876,   7572,     26,   9790,  13718,  25870,   5185,    323,     17,
+          68379,    213,   4981,    825,   4893,    337,    301,   3727,   6390,
+           1904,     42,  28458,   2265,   6343,    583,     42,   1770,     44,
+          16288,     77, 111851,  57583,    801,   1770,   2265,  25233,     44,
+          15543,  12382,   5977,  16917,     26,  21137,    344,   3894,   1600,
+           8886,  25233,   2265,  49742,  31053,     16,   6201,   2228,    485,
+           6354,   1245,    485,  84706,   2228,  15713,  10514,   2228,  15713,
+           6201,   2228,    485,   5133,   1245,    485,  25233,   2228,    485,
+          10514,   4152,     16,   7690,    485,  54258,   2228,  37111,  10514,
+          13557,  15694,  49742,   2077,   6343,   2265,   6343,    583,     42,
+           1770,     44,  16288,     77,   8982,    801,   1770,   2265,  25233,
+             44,  15543,   1788,   2743,   8886,  25233,   2265,  49742,  31053,
+             16,   6201,   2228,    485,   6354,   1245,    485,  84706,   2228,
+          15713,  10514,   2228,  15713,   6201,   2228,    485,   5133,   1245,
+            485,  25233,   2228,    485,  10514,   4152,     16,   7690,    485,
+          54258,   2228,  37111,  10514,  13557,  15694,  49742,   2077,   6343,
+           2077,  28458,   5689,   4855,    656,   8743,    337,   4145,    276,
+           1923,  59522,  22380,    319,    301,   3727,   8477,    550,  16403,
+          91819,   1904,     42,  77567,  85430,    583,     42,   6343,     43,
+           9204, 131840,   7445,    583,     42,  60532,     43,   9204,     77,
+          60532,     77,     31,    583,   5553,     77,     31,    213,    801,
+          60532,    583,     42,  60532,     43,   9204,     77,  60532,     77,
+             32,    583,   3153,    386,    301,   2304,    420,    301,   2249,
+          12392,    213,  10384,    748,  21294,    213, 156641,   7945,    213,
+            801,  60532,    583,    801,   6343,    583,    801,  77567,  85430,
+           5689,     42,   3961,  34335,  24092,    583,  12493,   5883,    706,
+             27,  30059,  18281, 219477,   2375,    301,  10424,   8477,     40,
+            442,  11657,    565,   6343,     43,   2571,   2077,   6343,     44,
+           6797,   3173,    461,  39639,   3976,    565,  77567,  85430,   2077,
+          77567,  85430,     44,  52998,  27122,    213,     27, 109889,   9336,
+         219477,    461,  10424,    213,     27,   2914,   1476,   4899,  26839,
+          39912,    420,    954,   1923,   4145,    319,   6495,   7572,    437,
+         247832,    301,   1923,   4145,     26,   1080,  11143,   2366,    213,
+             27,   2177,   1521,    386,    903,   1923,   4145,   4984,     26,
+           5034,    301,   5294,   1767,   5153,    550,    954,   3203,   8571,
+            344,    651,    682,   7477,    301,   4344,   1457,   1923,  18281,
+            213,    801,   3961,  34335,  24092,     44,      6,      5,      7,
+         103394,    332,  51022,   9874,    544,  10395,  39241,     28,      6,
+              5,      8, 261000]], device='mps:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+       device='mps:0')}
+
+Output IDs: tensor([    42,  77567,  85430,    583,     42,   6343,     43,  16288,     77,
+          8982,    583,     42,  60532,     43,  10514,     44,  44902,   9874,
+           544,  10395,  39241,  15478,    213,    801,  60532,    583,    801,
+          6343,    583,    801,  77567,  85430,     44, 261001,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6,      6,
+             6,      6,      6,      6,      6,      6,      6,      6],
+       device='mps:0')
+
+Output: <tool_call>
+<function=search_google>
+<parameter=query>AWS vs GCP pricing comparison
+</parameter>
+</function>
+</tool_call>
+
+Predicted Output: <tool_call>
+<function=search_google>
+<parameter=query>AWS vs GCP pricing comparison
+</parameter>
+</function>
+</tool_call>
+
+User Query: [{'role': 'user', 'content': "Explica en español qué significa la palabra japonesa 'ikigai' y da un ejemplo práctico."}]
+
+Text: <BOS_TOKEN><|START_OF_TURN_TOKEN|><|SYSTEM_TOKEN|># System Preamble
+You are in contextual safety mode. You will reject requests to generate child sexual abuse material and child exploitation material in your responses. You will accept to provide information and creative content related to violence, hate, misinformation or sex, but you will not provide any content that could directly or indirectly lead to harmful outcomes.
+
+Your information cutoff date is June 2024.
+
+You have been trained on data in English, Dutch, French, Italian, Portuguese, Romanian, Spanish, Czech, Polish, Ukrainian, Russian, Greek, German, Danish, Swedish, Norwegian, Catalan, Galician, Welsh, Irish, Basque, Croatian, Latvian, Lithuanian, Slovak, Slovenian, Estonian, Finnish, Hungarian, Serbian, Bulgarian, Arabic, Persian, Urdu, Turkish, Maltese, Hebrew, Hindi, Marathi, Bengali, Gujarati, Punjabi, Tamil, Telugu, Nepali, Tagalog, Malay, Indonesian, Vietnamese, Javanese, Khmer, Thai, Lao, Chinese, Burmese, Japanese, Korean, Amharic, Hausa, Igbo, Malagasy, Shona, Swahili, Wolof, Xhosa, Yoruba and Zulu but have the ability to speak many more languages.
+
+# Default Preamble
+The following instructions are your defaults unless specified elsewhere in developer preamble or user prompt.
+- Your name is Aya.
+- You are a large language model built by Cohere.
+- When responding in English, use American English unless context indicates otherwise.
+- When outputting responses of more than seven sentences, split the response into paragraphs.
+- Prefer the active voice.
+- Use gender-neutral pronouns for unspecified persons.
+- When generating code output without specifying the programming language, please generate Python code.
+# Tools
+You have access to the following functions:
+
+<tools><function>
+<name>search_knowledge_base</name><description>Search internal company documents, policies and project data.</description><parameters>{"type": "object", "properties": {"query": {"type": "string", "description": "query string"}}, "required": ["query"]}</parameters></function><function>
+<name>search_google</name><description>Search public information.</description><parameters>{"type": "object", "properties": {"query": {"type": "string", "description": "query string"}}, "required": ["query"]}</parameters></function></tools>
+
+If you choose to call a function ONLY reply in the following format with NO suffix:
+
+<tool_call>
+<function=example_function_name>
+<parameter=example_parameter_1>
+value_1
+</parameter>
+<parameter=example_parameter_2>
+This is the value for the second parameter
+that can span
+multiple lines
+</parameter>
+</function>
+</tool_call>
+
+<IMPORTANT>
+Reminder:
+- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags
+- Required parameters MUST be specified
+- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after
+- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls
+</IMPORTANT><|END_OF_TURN_TOKEN|><|START_OF_TURN_TOKEN|><|USER_TOKEN|>Explica en español qué significa la palabra japonesa 'ikigai' y da un ejemplo práctico.<|END_OF_TURN_TOKEN|><|START_OF_TURN_TOKEN|><|CHATBOT_TOKEN|><|START_RESPONSE|>
+
+Model Inputs: {'input_ids': tensor([[     2,      2,      5,      9,     17,   5669,   6604,  61477,    213,
+           4981,    569,    319,  94655,  14502,  10077,     28,   2914,   1009,
+          27983,  23006,    337,  13718,   3387,  16746,  26799,   3846,    344,
+           3387,  95671,   3846,    319,    954,  30187,     28,   2914,   1009,
+           7597,    337,   4899,   2743,    344,  21097,   4877,   7182,    337,
+          27665,     26,  27748,     26, 177524,    541,   1542,     26,   1080,
+            656,   1009,    682,   4899,   1410,   4877,    503,   2508,   9025,
+            541,  86273,   6219,    337,  35339,  19769,    458,  21256,   2743,
+         229632,   4802,    386,   9062,    235,     32,  10499,    458,   4981,
+            825,   1712,  31992,    447,   1600,    319,   6528,     26,  22777,
+             26,  19763,     26,  31746,     26, 102149,     26, 117161,     26,
+          36011,     26,  46988,     26,  74132,     26, 130868,     26,  24122,
+             26,  29273,     26,  16122,     26,  38534,     26,  40975,     26,
+          80862,     26, 138045,     26,  19210,  27134,     26, 146448,     26,
+          83382,     26, 197135,     26,    395,  25294,    985,     26, 183432,
+             26, 119571,   5406,    985,     26, 199416,     26, 220721,     26,
+         193395,     26, 123995,     26, 221636,     26, 237582,     26,  21958,
+             26,  47684,     26,  44896,     26, 179482,     26,  78926,     26,
+         160260,   1134,     26,  81319,     26,  43318,     26,  65843,     26,
+         157056,     26, 150010, 113602,     26, 104407,  12576,     26, 113817,
+             26,  18077,  16877,     26,  42799,   1820,     26,  23617,  62469,
+             26, 153505,     26, 138956,     26,  89221,     26,    638, 247255,
+             26,  14739,   1230,     26,  17930,     26, 192421,     26,  17172,
+             26,  20043,     91,   1134,     26,  26360,     26,  72914,     26,
+           4134, 242555,     26, 173445,     26,  24166,   1812,     26,   6793,
+            382,  11193,     26,   2898,   3151,     26,  10752, 207992,     26,
+          19468,   2022,     26,   2243,     86,   6725,     26, 150823,    344,
+           1455,   5976,   1080,    825,    301,  10776,    337,  15076,   2586,
+           1187,  23683,    458,     17,  31560,   6604,  61477,    213,    948,
+           3727,  18834,    569,    954,  57132,  17921,  10424,  39856,    319,
+          42404,    839,  61477,    541,   4344,  22197,    323,     27,   8979,
+           2250,    386,    375,    915,    323,     27,   2914,    569,    276,
+           5135,   7572,   3013,  11100,    592, 188212,    493,    323,     27,
+           4255,  78593,    319,   6528,     26,   1418,   7107,   6528,  17921,
+           6989,  19504,  14705,    323,     27,   4255, 239272,  30187,    332,
+           1187,   1580,  23209,  31523,     26,  15989,    301,   6135,   1656,
+          58491,    323,     27, 153446,    301,  10208,  17040,    323,     27,
+          10559,  26599,  83379,  16799, 149241,    420,    487, 154469,  28696,
+            323,     27,   4255,  30420,   5185,   4835,   3837,  64221,    301,
+          17876,   7572,     26,   9790,  13718,  25870,   5185,    323,     17,
+          68379,    213,   4981,    825,   4893,    337,    301,   3727,   6390,
+           1904,     42,  28458,   2265,   6343,    583,     42,   1770,     44,
+          16288,     77, 111851,  57583,    801,   1770,   2265,  25233,     44,
+          15543,  12382,   5977,  16917,     26,  21137,    344,   3894,   1600,
+           8886,  25233,   2265,  49742,  31053,     16,   6201,   2228,    485,
+           6354,   1245,    485,  84706,   2228,  15713,  10514,   2228,  15713,
+           6201,   2228,    485,   5133,   1245,    485,  25233,   2228,    485,
+          10514,   4152,     16,   7690,    485,  54258,   2228,  37111,  10514,
+          13557,  15694,  49742,   2077,   6343,   2265,   6343,    583,     42,
+           1770,     44,  16288,     77,   8982,    801,   1770,   2265,  25233,
+             44,  15543,   1788,   2743,   8886,  25233,   2265,  49742,  31053,
+             16,   6201,   2228,    485,   6354,   1245,    485,  84706,   2228,
+          15713,  10514,   2228,  15713,   6201,   2228,    485,   5133,   1245,
+            485,  25233,   2228,    485,  10514,   4152,     16,   7690,    485,
+          54258,   2228,  37111,  10514,  13557,  15694,  49742,   2077,   6343,
+           2077,  28458,   5689,   4855,    656,   8743,    337,   4145,    276,
+           1923,  59522,  22380,    319,    301,   3727,   8477,    550,  16403,
+          91819,   1904,     42,  77567,  85430,    583,     42,   6343,     43,
+           9204, 131840,   7445,    583,     42,  60532,     43,   9204,     77,
+          60532,     77,     31,    583,   5553,     77,     31,    213,    801,
+          60532,    583,     42,  60532,     43,   9204,     77,  60532,     77,
+             32,    583,   3153,    386,    301,   2304,    420,    301,   2249,
+          12392,    213,  10384,    748,  21294,    213, 156641,   7945,    213,
+            801,  60532,    583,    801,   6343,    583,    801,  77567,  85430,
+           5689,     42,   3961,  34335,  24092,    583,  12493,   5883,    706,
+             27,  30059,  18281, 219477,   2375,    301,  10424,   8477,     40,
+            442,  11657,    565,   6343,     43,   2571,   2077,   6343,     44,
+           6797,   3173,    461,  39639,   3976,    565,  77567,  85430,   2077,
+          77567,  85430,     44,  52998,  27122,    213,     27, 109889,   9336,
+         219477,    461,  10424,    213,     27,   2914,   1476,   4899,  26839,
+          39912,    420,    954,   1923,   4145,    319,   6495,   7572,    437,
+         247832,    301,   1923,   4145,     26,   1080,  11143,   2366,    213,
+             27,   2177,   1521,    386,    903,   1923,   4145,   4984,     26,
+           5034,    301,   5294,   1767,   5153,    550,    954,   3203,   8571,
+            344,    651,    682,   7477,    301,   4344,   1457,   1923,  18281,
+            213,    801,   3961,  34335,  24092,     44,      6,      5,      7,
+           2615,  19292,    472,  78985,  23752,  23131,    528,  76787, 248946,
+             79,    761,    452,    363,    692,     21,    378,    947,    487,
+          18514,  25244,   1720,     28,      6,      5,      8, 261000]],
+       device='mps:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='mps:0')}
+
+Output IDs: tensor([    42,  77567,  85430,    583,     42,   6343,     43,  16288,     77,
+          8982,    583,     42,  60532,     43,  10514,     44,  23175,  28681,
+           345,   3092,    363,    692,    472,  78985,    213,    801,  60532,
+           583,    801,   6343,    583,    801,  77567,  85430,     44, 261001,
+             6, 261001,      6,      6,      6,      6,      6, 261001,      6,
+             6,      6,      6,      6, 261001,      6,      6,      6,      6,
+        261001,      6,      6,      6,      6, 261001,      6,      6,      6,
+        261001,      6,      6, 261001,      6,      6, 261001,      6,      6,
+        261001,      6,      6, 261001,      6,      6, 261001,      6,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001,      6,
+        261001,      6, 261001,      6, 261001,      6, 261001,      6, 261001,
+             6, 261001,      6, 261001,      6, 261001,      6, 261001],
+       device='mps:0')
+
+Output: <tool_call>
+<function=search_google>
+<parameter=query>Significado de ikigai en español
+</parameter>
+</function>
+</tool_call>
+
+Predicted Output: <tool_call>
+<function=search_google>
+<parameter=query>Significado de ikigai en español
+</parameter>
+</function>
+</tool_call>
+
+* Run finished. Uploading logs to Trackio Space (please wait...)

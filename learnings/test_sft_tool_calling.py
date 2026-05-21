@@ -63,7 +63,7 @@ dataset = dataset.map(create_conversation, remove_columns=dataset.features)
 # Split dataset into 50% training samples and 50% test samples
 dataset = dataset.train_test_split(test_size=0.5, shuffle=True)
 
-print(json.dumps(dataset["train"][0], indent=4))
+print(json.dumps(dataset["train"][0], indent=4) + "\n")
 
 model_id, output_dir = "CohereLabs/tiny-aya-global", "tiny-aya-global-SFT"
 
@@ -145,16 +145,16 @@ def generate_prediction(prompt):
     text = tokenizer.apply_chat_template(
         prompt, tools=TOOLS, tokenize=False, add_generation_prompt=True
     )
-    print(f"Text: {text}")
+    print(f"Text: {text}\n")
     model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
-    print(f"Model Inputs: {model_inputs}")
+    print(f"Model Inputs: {model_inputs}\n")
 
     generated_ids = model.generate(
         **model_inputs,
         max_new_tokens=512,
     )
     output_ids = generated_ids[0][len(model_inputs.input_ids[0]):]
-    print(f"Output IDs: {output_ids}")
+    print(f"Output IDs: {output_ids}\n")
     print(f"Output: {tokenizer.decode(output_ids, skip_special_tokens=True)}\n")
     return tokenizer.decode(output_ids, skip_special_tokens=True)
 
@@ -162,15 +162,15 @@ sample_test_data = dataset["test"][0] # Get a sample from the test set
 
 user_content = sample_test_data["prompt"]
 
-print(f"User Query: {user_content}")
+print(f"User Query: {user_content}\n")
 
 predicted_output = generate_prediction(user_content)
-print(f"Predicted Output: {predicted_output}")
+print(f"Predicted Output: {predicted_output}\n")
 
 user_content = "Explica en español qué significa la palabra japonesa 'ikigai' y da un ejemplo práctico." # Spanish question
 user_content = [{"role": "user", "content": user_content}]
 
-print(f"User Query: {user_content}")
+print(f"User Query: {user_content}\n")
 
 predicted_output = generate_prediction(user_content)
-print(f"Predicted Output: {predicted_output}")
+print(f"Predicted Output: {predicted_output}\n")
