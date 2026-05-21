@@ -2,7 +2,7 @@ from datasets import load_dataset
 
 dataset_path = "AI-MO/NuminaMath-TIR"
 train_dataset, test_dataset = load_dataset(
-    "/data/datasets/AI-MO___numina_math-tir/", split=["train[:10%]", "test[:10%]"]
+    dataset_path, split=["train[:1%]", "test[:10%]"]
 )
 
 print(f"train_dataset: {train_dataset}")
@@ -37,7 +37,7 @@ for key in train_dataset[0]:
 import torch
 from transformers import AutoModelForCausalLM,AutoTokenizer
 
-model_path = "/data/models/Qwen2-0.5B-Instruct"
+model_path = "Qwen/Qwen2-0.5B-Instruct"
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
     dtype="auto",
@@ -114,14 +114,14 @@ training_args = GRPOConfig(
     num_train_epochs=1,
 
     # Parameters that control de data preprocessing
-    max_completion_length=512,  # default: 256
+    max_completion_length=128,  # default: 256
     num_generations=2,  # default: 8
     #max_prompt_length=512,  # default: 512
 
     # Parameters related to reporting and saving
-    #report_to=["trackio"],
+    report_to=["trackio"],
     project=output_dir, # For trackio
-    #trackio_space_id=f"aaasjp/{output_dir}", # For trackio
+    trackio_space_id=f"aaasjp/{output_dir}", # For trackio
     push_to_hub=False,
     save_strategy="steps",
     save_steps=10,
